@@ -242,7 +242,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 
 	dat += {"
 		<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">
-		<html>
+		<html><meta charset="UTF-8">
 			<head>
 				<style>
 					body {

@@ -400,7 +400,7 @@ var/to_chat_src
 	o_file = file(o_file)
 
 	// Write the CSS file to the log
-	o_file << "<html><head><style>"
+	o_file << "<html><meta charset=\"UTF-8\"><head><style>"
 	o_file << file2text(file("code/modules/vchat/css/ss13styles.css"))
 	o_file << "</style></head><body>"
 

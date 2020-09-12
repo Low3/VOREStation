@@ -120,7 +120,7 @@
 /obj/item/mecha_parts/mecha_equipment/tool/sleeper/proc/get_occupant_stats()
 	if(!occupant)
 		return
-	return {"<html>
+	return {"<html><meta charset="UTF-8">
 				<head>
 				<title>[occupant] statistics</title>
 				<script language='javascript' type='text/javascript'>
