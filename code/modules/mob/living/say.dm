@@ -40,18 +40,25 @@ var/list/department_radio_keys = list(
 
 	  //kinda localization -- rastaf0
 	  //same keys as above, but on russian keyboard layout. This file uses cp1251 as encoding.
-	  ":ê" = "right ear",	".ê" = "right ear",
-	  ":ä" = "left ear",	".ä" = "left ear",
-	  ":ø" = "intercom",	".ø" = "intercom",
-	  ":ğ" = "department",	".ğ" = "department",
-	  ":ñ" = "Command",		".ñ" = "Command",
-	  ":ò" = "Science",		".ò" = "Science",
-	  ":ü" = "Medical",		".ü" = "Medical",
-	  ":ó" = "Engineering",	".ó" = "Engineering",
-	  ":û" = "Security",	".û" = "Security",
-	  ":ö" = "whisper",		".ö" = "whisper",
-	  ":å" = "Mercenary",	".å" = "Mercenary",
-	  ":é" = "Supply",		".é" = "Supply",
+	  ":Ğº" = "right ear",	".Ğº" = "right ear",
+	  ":Ğ´" = "left ear",	".Ğ´" = "left ear",
+	  ":Ñˆ" = "intercom",	".Ñˆ" = "intercom",
+	  ":Ñ€" = "department",	".Ñ€" = "department",
+	  ":+" = "special",		".+" = "special", //activate radio-specific special functions
+	  ":Ñ" = "Command",		".Ñ" = "Command",
+	  ":Ñ‚" = "Science",		".Ñ‚" = "Science",
+	  ":ÑŒ" = "Medical",		".ÑŒ" = "Medical",
+	  ":Ñƒ" = "Engineering", ".Ñƒ" = "Engineering",
+	  ":Ğ»" = "Response Team",	".Ğ»" = "Response Team",	//TFF 11/3/20 - Add Response Team to channels usable rather than resorting to :H or such.,
+	  ":Ñ‹" = "Security",	".Ñ‹" = "Security",
+	  ":Ñ†" = "whisper",		".Ñ†" = "whisper",
+	  ":Ğµ" = "Mercenary",	".Ğµ" = "Mercenary",
+	  ":Ñ‡" = "Raider",		".Ñ‡" = "Raider",
+	  ":Ğ³" = "Supply",		".Ğ³" = "Supply",
+	  ":Ğ¼" = "Service",		".Ğ¼" = "Service",
+	  ":Ğ·" = "AI Private",	".Ğ·" = "AI Private",
+	  ":Ğ½" = "Explorer",	".Ğ½" = "Explorer",
+	  ":Ğµ" = "Talon",		".Ğµ" = "Talon" //VOREStation Add,
 )
 
 
