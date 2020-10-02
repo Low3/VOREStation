@@ -717,7 +717,7 @@
 		return
 
 	var/list/nom = null
-	var/material/M = null
+	var/datum/material/M = null
 	if(istype(I, /obj/item/weapon/ore)) //Raw unrefined ore. Some things are just better untempered!
 		var/obj/item/weapon/ore/O = I
 		//List in list, define by material property of ore in code/mining/modules/ore.dm.
@@ -851,7 +851,7 @@
 	dispvoreprefs += "<b>Healbelly permission:</b> [permit_healbelly ? "Allowed" : "Disallowed"]<br>"
 	dispvoreprefs += "<b>Spontaneous vore prey:</b> [can_be_drop_prey ? "Enabled" : "Disabled"]<br>"
 	dispvoreprefs += "<b>Spontaneous vore pred:</b> [can_be_drop_pred ? "Enabled" : "Disabled"]<br>"
-	user << browse("<html><meta charset=\"UTF-8\"><head><title>Vore prefs: [src]</title></head><body><center>[dispvoreprefs]</center></body></html>", "window=[name]mvp;size=200x300;can_resize=0;can_minimize=0")
+	user << browse("<html><head><title>Vore prefs: [src]</title></head><body><center>[dispvoreprefs]</center></body></html>", "window=[name]mvp;size=200x300;can_resize=0;can_minimize=0")
 	onclose(user, "[name]")
 	return
 

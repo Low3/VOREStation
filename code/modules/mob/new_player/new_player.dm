@@ -164,7 +164,7 @@
 		if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
 			to_chat(usr, "<font color='red'>The round is either not ready, or has already finished...</font>")
 			return
-
+		
 		var/time_till_respawn = time_till_respawn()
 		if(time_till_respawn == -1) // Special case, never allowed to respawn
 			to_chat(usr, "<span class='warning'>Respawning is not allowed!</span>")
@@ -206,7 +206,7 @@
 			return 0
 
 		var/datum/species/S = GLOB.all_species[client.prefs.species]
-
+		
 		if(!(S.spawn_flags & SPECIES_CAN_JOIN))
 			alert(src,"Your current species, [client.prefs.species], is not available for play on the station.")
 			return 0
@@ -338,7 +338,7 @@
 		client.prefs.lastnews = md5(F["body"])
 		SScharacter_setup.queue_preferences_save(client.prefs)
 
-		var/dat = "<html><meta charset=\"UTF-8\"><body><center>"
+		var/dat = "<html><body><center>"
 		dat += "<h1>[F["title"]]</h1>"
 		dat += "<br>"
 		dat += "[F["body"]]"
@@ -352,7 +352,7 @@
 /mob/new_player/proc/time_till_respawn()
 	if(!ckey)
 		return -1 // What?
-
+		
 	var/timer = GLOB.respawn_timers[ckey]
 	// No timer at all
 	if(!timer)
@@ -475,7 +475,7 @@
 /mob/new_player/proc/LateChoices()
 	var/name = client.prefs.be_random_name ? "friend" : client.prefs.real_name
 
-	var/dat = "<html><meta charset=\"UTF-8\"><body><center>"
+	var/dat = "<html><body><center>"
 	dat += "<b>Welcome, [name].<br></b>"
 	dat += "Round Duration: [roundduration2text()]<br>"
 

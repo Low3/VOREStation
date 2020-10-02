@@ -40,25 +40,18 @@ var/list/department_radio_keys = list(
 
 	  //kinda localization -- rastaf0
 	  //same keys as above, but on russian keyboard layout. This file uses cp1251 as encoding.
-	  ":–∫" = "right ear",	".–∫" = "right ear",
-	  ":–¥" = "left ear",	".–¥" = "left ear",
-	  ":—à" = "intercom",	".—à" = "intercom",
-	  ":—Ä" = "department",	".—Ä" = "department",
-	  ":+" = "special",		".+" = "special", //activate radio-specific special functions
-	  ":—Å" = "Command",		".—Å" = "Command",
-	  ":—Ç" = "Science",		".—Ç" = "Science",
-	  ":—å" = "Medical",		".—å" = "Medical",
-	  ":—É" = "Engineering", ".—É" = "Engineering",
-	  ":–ª" = "Response Team",	".–ª" = "Response Team",	//TFF 11/3/20 - Add Response Team to channels usable rather than resorting to :H or such.,
-	  ":—ã" = "Security",	".—ã" = "Security",
-	  ":—Ü" = "whisper",		".—Ü" = "whisper",
-	  ":–µ" = "Mercenary",	".–µ" = "Mercenary",
-	  ":—á" = "Raider",		".—á" = "Raider",
-	  ":–≥" = "Supply",		".–≥" = "Supply",
-	  ":–º" = "Service",		".–º" = "Service",
-	  ":–∑" = "AI Private",	".–∑" = "AI Private",
-	  ":–Ω" = "Explorer",	".–Ω" = "Explorer",
-	  ":–µ" = "Talon",		".–µ" = "Talon" //VOREStation Add,
+	  ":Í" = "right ear",	".Í" = "right ear",
+	  ":‰" = "left ear",	".‰" = "left ear",
+	  ":¯" = "intercom",	".¯" = "intercom",
+	  ":" = "department",	"." = "department",
+	  ":Ò" = "Command",		".Ò" = "Command",
+	  ":Ú" = "Science",		".Ú" = "Science",
+	  ":¸" = "Medical",		".¸" = "Medical",
+	  ":Û" = "Engineering",	".Û" = "Engineering",
+	  ":˚" = "Security",	".˚" = "Security",
+	  ":ˆ" = "whisper",		".ˆ" = "whisper",
+	  ":Â" = "Mercenary",	".Â" = "Mercenary",
+	  ":È" = "Supply",		".È" = "Supply",
 )
 
 
@@ -161,20 +154,20 @@ proc/get_radio_key_from_channel(var/channel)
 	var/message_mode = parse_message_mode(message, "headset")
 
 	//Maybe they are using say/whisper to do a quick emote, so do those
-	switch(copytext_char(message, 1, 2))
-		if("*") return emote(copytext_char(message, 2))
-		if("^") return custom_emote(1, copytext_char(message, 2))
+	switch(copytext(message, 1, 2))
+		if("*") return emote(copytext(message, 2))
+		if("^") return custom_emote(1, copytext(message, 2))
 
 	//Parse the radio code and consume it
 	if(message_mode)
 		if(message_mode == "headset")
-			message = copytext_char(message, 2)	//it would be really nice if the parse procs could do this for us.
+			message = copytext(message, 2)	//it would be really nice if the parse procs could do this for us.
 		else if(message_mode == "whisper")
 			whispering = 1
 			message_mode = null
-			message = copytext_char(message, 3)
+			message = copytext(message, 3)
 		else
-			message = copytext_char(message, 3)
+			message = copytext(message, 3)
 
 	//Clean up any remaining space on the left
 	message = trim_left(message)
@@ -278,7 +271,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	//VOREStation edit - allows for custom say verbs, overriding all other say-verb types- e.g. "says loudly" instead of "shouts"
 	//You'll still stammer if injured or slur if drunk, but it won't have those specific words
-	var/ending = copytext_char(message, length(message))
+	var/ending = copytext(message, length(message))
 
 	if(custom_whisper && whispering)
 		verb = "[custom_whisper]"

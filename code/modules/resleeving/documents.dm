@@ -3,7 +3,7 @@
 	icon_state = "stasis"
 	author = "Dnar Koshi"
 	title = "Resleeving, the New Cloning?"
-	dat = {"<html><meta charset="UTF-8">
+	dat = {"<html>
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}

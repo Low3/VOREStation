@@ -31,7 +31,10 @@
 	var/initial_icon = null				//Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 1
 	var/mob/living/carbon/occupant = null
+
 	var/step_in = 10					//Make a step in step_in/10 sec.
+	var/encumbrance_gap = 1			//How many points of slowdown are negated from equipment? Added to the mech's base step_in.
+
 	var/dir_in = 2						//What direction will the mech face when entered/powered on? Defaults to South.
 	var/step_energy_drain = 10
 	var/health = 300 					//Health is health
@@ -193,6 +196,7 @@
 	var/datum/action/innate/mecha/mech_toggle_cloaking/cloak_action = new
 
 	var/weapons_only_cycle = FALSE	//So combat mechs don't switch to their equipment at times.
+
 /obj/mecha/Initialize()
 	..()
 
@@ -559,12 +563,12 @@
 		target.attack_hand(src.occupant)
 		return 1
 	if(istype(target, /obj/machinery/embedded_controller))
-		target.ui_interact(src.occupant)
+		target.tgui_interact(src.occupant)
 		return 1
 	return 0
 
-/obj/mecha/contents_nano_distance(var/src_object, var/mob/living/user)
-	. = user.shared_living_nano_distance(src_object) //allow them to interact with anything they can interact with normally.
+/obj/mecha/contents_tgui_distance(var/src_object, var/mob/living/user)
+	. = user.shared_living_tgui_distance(src_object) //allow them to interact with anything they can interact with normally.
 	if(. != STATUS_INTERACTIVE)
 		//Allow interaction with the mecha or anything that is part of the mecha
 		if(src_object == src || (src_object in src))
@@ -641,17 +645,20 @@
 /obj/mecha/proc/get_step_delay()
 	var/tally = 0
 
-	if(overload)
-		tally = min(1, round(step_in/2))
+	if(LAZYLEN(equipment))
+		for(var/obj/item/mecha_parts/mecha_equipment/ME in equipment)
+			if(ME.get_step_delay())
+				tally += ME.get_step_delay()
+
+		if(tally <= encumbrance_gap)	// If the total is less than our encumbrance gap, ignore equipment weight.
+			tally = 0
+		else	// Otherwise, start the tally after cutting that gap out.
+			tally -= encumbrance_gap
 
 	for(var/slot in internal_components)
 		var/obj/item/mecha_parts/component/C = internal_components[slot]
 		if(C && C.get_step_delay())
 			tally += C.get_step_delay()
-
-	for(var/obj/item/mecha_parts/mecha_equipment/ME in equipment)
-		if(ME.get_step_delay())
-			tally += ME.get_step_delay()
 
 	var/obj/item/mecha_parts/component/actuator/actuator = internal_components[MECH_ACTUATOR]
 
@@ -674,7 +681,10 @@
 					break
 			break
 
-	return max(1, round(tally, 0.1))
+	if(overload)	// At the end, because this would normally just make the mech *slower* since tally wasn't starting at 0.
+		tally = min(1, round(tally/2))
+
+	return max(1, round(tally, 0.1))	// Round the total to the nearest 10th. Can't go lower than 1 tick. Even humans have a delay longer than that.
 
 /obj/mecha/proc/dyndomove(direction)
 	if(!can_move)
@@ -2044,7 +2054,7 @@
 ////////////////////////////////////
 
 /obj/mecha/proc/get_stats_html()
-	var/output = {"<html><meta charset="UTF-8">
+	var/output = {"<html>
 						<head><title>[src.name] data</title>
 						<style>
 						body {color: #00ff00; background: #000000; font-family:"Lucida Console",monospace; font-size: 12px;}
@@ -2235,7 +2245,7 @@
 
 
 /obj/mecha/proc/get_log_html()
-	var/output = "<html><meta charset=\"UTF-8\"><head><title>[src.name] Log</title></head><body style='font: 13px 'Courier', monospace;'>"
+	var/output = "<html><head><title>[src.name] Log</title></head><body style='font: 13px 'Courier', monospace;'>"
 	for(var/list/entry in log)
 		output += {"<div style='font-weight: bold;'>[time2text(entry["time"],"DDD MMM DD hh:mm:ss")] [game_year]</div>
 						<div style='margin-left:15px; margin-bottom:10px;'>[entry["message"]]</div>
@@ -2256,7 +2266,7 @@
 
 /obj/mecha/proc/output_access_dialog(obj/item/weapon/card/id/id_card, mob/user)
 	if(!id_card || !user) return
-	var/output = {"<html><meta charset="UTF-8">
+	var/output = {"<html>
 						<head><style>
 						h1 {font-size:15px;margin-bottom:4px;}
 						body {color: #00ff00; background: #000000; font-family:"Courier New", Courier, monospace; font-size: 12px;}
@@ -2286,7 +2296,7 @@
 	if (locate(/obj/item/mecha_parts/mecha_equipment/tool/passenger) in contents)
 		maint_options += "<a href='?src=\ref[src];remove_passenger=1;user=\ref[user]'>Remove Passenger</a>"
 
-	var/output = {"<html><meta charset="UTF-8">
+	var/output = {"<html>
 						<head>
 						<style>
 						body {color: #00ff00; background: #000000; font-family:"Courier New", Courier, monospace; font-size: 12px;}
@@ -2812,7 +2822,7 @@
 	if(!occupant) return
 	if(usr!=occupant)
 		return
-	var/output = {"<html><meta charset="UTF-8">
+	var/output = {"<html>
 						<head>
 						</head>
 						<body>

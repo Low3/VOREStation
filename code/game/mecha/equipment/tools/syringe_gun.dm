@@ -141,7 +141,7 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/tool/syringe_gun/proc/get_reagents_page()
-	var/output = {"<html><meta charset="UTF-8">
+	var/output = {"<html>
 						<head>
 						<title>Reagent Synthesizer</title>
 						<script language='javascript' type='text/javascript'>

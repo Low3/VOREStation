@@ -235,12 +235,12 @@ datum/preferences
 		to_chat(user, "<span class='danger'>No mob exists for the given client!</span>")
 		close_load_dialog(user)
 		return
-
+	
 	if(!char_render_holders)
 		update_preview_icon()
 	show_character_previews()
 
-	var/dat = "<html><meta charset=\"UTF-8\"><body><center>"
+	var/dat = "<html><body><center>"
 
 	if(path)
 		dat += "Slot - "
@@ -280,7 +280,7 @@ datum/preferences
 		client.screen |= BG
 	BG.icon_state = bgstate
 	BG.screen_loc = preview_screen_locs["BG"]
-
+	
 	for(var/D in global.cardinal)
 		var/obj/screen/setup_preview/O = LAZYACCESS(char_render_holders, "[D]")
 		if(!O)

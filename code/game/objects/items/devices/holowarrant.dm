@@ -67,7 +67,7 @@
 		return
 	if(active.fields["arrestsearch"] == "arrest")
 		var/output = {"
-		<HTML><meta charset="UTF-8"><HEAD><TITLE>[active.fields["namewarrant"]]</TITLE></HEAD>
+		<HTML><HEAD><TITLE>[active.fields["namewarrant"]]</TITLE></HEAD>
 		<BODY bgcolor='#FFFFFF'><center><large><b>Sol Central Government Colonial Marshal Bureau</b></large></br>
 		in the jurisdiction of the</br>
 		[using_map.boss_name] in [using_map.station_name]</br>
@@ -85,7 +85,7 @@
 		show_browser(user, output, "window=Warrant for the arrest of [active.fields["namewarrant"]]")
 	if(active.fields["arrestsearch"] ==  "search")
 		var/output= {"
-		<HTML><meta charset="UTF-8"><HEAD><TITLE>Search Warrant: [active.fields["namewarrant"]]</TITLE></HEAD>
+		<HTML><HEAD><TITLE>Search Warrant: [active.fields["namewarrant"]]</TITLE></HEAD>
 		<BODY bgcolor='#FFFFFF'><center>in the jurisdiction of the</br>
 		[using_map.boss_name] in [using_map.station_name]</br>
 		</br>
@@ -115,7 +115,7 @@
 	name = "holowarrant devices"
 	desc = "A box of holowarrant diplays for security use."
 
-/obj/item/weapon/storage/box/holowarrants/New()
+/obj/item/weapon/storage/box/holowarrants/New() 
 	..()
 	for(var/i = 0 to 3)
 		new /obj/item/device/holowarrant(src) // VOREStation addition ends
